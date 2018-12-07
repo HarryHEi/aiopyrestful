@@ -28,11 +28,13 @@ packages=['tornado','pyconvert']
 
 distutils.core.setup(
 	name='aiopyrestful',
-	version = '0.0.1',
+	version = '0.0.2',
 	packages=['aiopyrestful'],
 	author='DarHarry',
 	author_email='harryx520@qq.com',
 	description='Restful framework with Tornado',
+	long_description=long_description,
+	long_description_content_type="text/markdown",
 	url='https://github.com/HarryHEi/aiopyrestful',
 	install_requires=packages,
 	classifiers=[
