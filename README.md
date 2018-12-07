@@ -1,4 +1,4 @@
-GitHub: [aio-pyrestful](https://github.com/HarryHEi/aio-pyrestful)
+GitHub: [aiopyrestful](https://github.com/HarryHEi/aiopyrestful)
 
 This is a Specialized version of [pyrestful](https://github.com/rancavil/tornado-rest)
 ---------
@@ -12,14 +12,14 @@ We made changes from the last version to improve it and make it more easy.
 
 The last version works with Python 2 and 3.
 
-aio_pyrestful
+aiopyrestful
 ---------
 Support asyncio.
 
 ### Install
 
 ```
-pip install aio_pyrestful
+pip install aiopyrestful
 ```
 
 ### Example
@@ -28,7 +28,7 @@ pip install aio_pyrestful
 ```python
 import asyncio
 
-from aio_pyrestful.rest import get, mediatypes
+from aiopyrestful.rest import get, mediatypes
 
 
 @asyncio.coroutine
