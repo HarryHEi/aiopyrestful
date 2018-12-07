@@ -26,7 +26,7 @@ import re
 import json
 import sys
 
-from aio_pyrestful import mediatypes, types
+from aiopyrestful import mediatypes, types
 from pyconvert.pyconv import convertXML2OBJ, convert2XML, convertJSON2OBJ, convert2JSON
 
 class PyRestfulException(Exception):
