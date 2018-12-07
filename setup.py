@@ -24,11 +24,11 @@ except ImportError:
 with open('README.md', 'r') as fh:
 	long_description = fh.read()
 
-packages=['tornado','pyconvert']
+packages = ['tornado', 'pyconvert']
 
 distutils.core.setup(
 	name='aiopyrestful',
-	version = '0.0.2',
+	version='0.0.2',
 	packages=['aiopyrestful'],
 	author='DarHarry',
 	author_email='harryx520@qq.com',
