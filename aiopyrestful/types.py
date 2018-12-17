@@ -8,6 +8,6 @@ def convert(value, type_):
     else:
         data = value.decode('utf-8')
         if issubclass(type_, bool):
-            return False if data.upper() == 'FALSE' else False
+            return False if data.upper() == 'FALSE' else True
         else:
             return type_(data)
