@@ -206,16 +206,21 @@ class RestHandler(tornado.web.RequestHandler):
 
     def _find_params_value_of_arguments(self, operation):
         values = []
+        a = operation._service_params
+        b = operation._func_params
+        params = [item for item in b if item not in a]
         if len(self.request.arguments) > 0:
-            a = operation._service_params
-            b = operation._func_params
-            params = [item for item in b if item not in a]
             for p in params:
                 if p in self.request.arguments.keys():
                     v = self.request.arguments[p]
                     values.append(v[0])
                 else:
                     values.append(None)
+        elif self.request.body:
+            request_data = json.loads(self.request.body)
+            for p in params:
+                values.append(request_data.get(p, None))
+
         elif len(self.request.arguments) == 0 and len(operation._query_params) > 0:
             values = [None]*(len(operation._func_params) - len(operation._service_params))
         return values
