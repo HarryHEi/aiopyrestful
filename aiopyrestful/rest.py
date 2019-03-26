@@ -28,6 +28,7 @@ import sys
 
 from aiopyrestful import mediatypes, types
 from pyconvert.pyconv import convertXML2OBJ, convert2XML, convertJSON2OBJ, convert2JSON
+from aiopyrestful.exceptions import ValidationError
 
 class PyRestfulException(Exception):
     """ Class for PyRestful exceptions """
@@ -189,6 +190,8 @@ class RestHandler(tornado.web.RequestHandler):
                         self.finish()
                     else:
                         self.gen_http_error(500,"Internal Server Error : response is not %s document"%produces)
+                except ValidationError as exc:
+                    self.gen_restful_error(400, exc.detail)
                 except Exception as detail:
                     self.gen_http_error(500,"Internal Server Error : %s"%detail)
 
@@ -242,6 +245,12 @@ class RestHandler(tornado.web.RequestHandler):
         self.clear()
         self.set_status(status)
         self.write("<html><body>"+str(msg)+"</body></html>")
+        self.finish()
+
+    def gen_restful_error(self, status, msg):
+        self.clear()
+        self.set_status(status)
+        self.write(json.dumps(msg))
         self.finish()
 
     @classmethod
