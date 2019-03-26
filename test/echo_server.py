@@ -1,6 +1,7 @@
 import asyncio
 
 from aiopyrestful.rest import RestHandler, get, post, mediatypes, RestService
+from aiopyrestful.exceptions import ValidationError
 
 
 class BaseHandler(RestHandler):
@@ -32,6 +33,10 @@ class UserHandler(BaseHandler):
 
     @post(_path='/data', _types=[int, bool, str], _produces=mediatypes.APPLICATION_JSON)
     def post_data(self, user_id, checked, name):
+        if user_id < 0:
+            raise ValidationError({
+                'user_id': 'It has to be greater than zero.'
+            })
         return {
             'user_id': user_id,
             'checked': checked,
