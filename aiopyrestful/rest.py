@@ -19,7 +19,6 @@ import asyncio
 
 import tornado.ioloop
 import tornado.web
-import tornado.wsgi
 import xml.dom.minidom
 import inspect
 import re
@@ -57,7 +56,7 @@ def config(func,method,**kwparams):
         return func(*args,**kwargs)
 
     operation.func_name       = func.__name__
-    operation._func_params    = inspect.getargspec(func).args[1:]
+    operation._func_params    = inspect.getfullargspec(func).args[1:]
     operation._types          = types or [str]*len(operation._func_params)
     operation._service_name   = re.findall(r"(?<=/)\w+",path)
     operation._service_params = re.findall(r"(?<={)\w+",path)
@@ -297,29 +296,6 @@ class RestService(tornado.web.Application):
         if handlers != None:
             restservices += handlers
         tornado.web.Application.__init__(self, restservices, default_host, transforms, **settings)
-
-    def _generateRestServices(self,rest):
-        svs = []
-        paths = rest.get_paths()
-        for p in paths:
-            s = re.sub(r"(?<={)\w+}",".*",p).replace("{","")
-            o = re.sub(r"(?<=<)\w+","",s).replace("<","").replace(">","").replace("&","").replace("?","")
-            svs.append((o,rest,self.resource))
-
-        return svs
-
-class WSGIRestService(tornado.wsgi.WSGIApplication):
-    """ Class to create WSGI Rest services in tornado web server """
-    resource = None
-    def __init__(self, rest_handlers, resource=None, handlers=None, default_host="", **settings):
-        restservices = []
-        self.resource = resource
-        for r in rest_handlers:
-            svs = self._generateRestServices(r)
-            restservices += svs
-        if handlers != None:
-            restservices += handlers
-        tornado.wsgi.WSGIApplication.__init__(self, restservices, default_host, **settings)
 
     def _generateRestServices(self,rest):
         svs = []
