@@ -28,7 +28,7 @@ packages = ['tornado', 'pyconvert']
 
 distutils.core.setup(
 	name='aiopyrestful',
-	version='1.4.0',
+	version='1.4.1',
 	packages=['aiopyrestful'],
 	author='DarHarry',
 	author_email='harryx520@qq.com',
