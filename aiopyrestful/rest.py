@@ -193,6 +193,8 @@ class RestHandler(tornado.web.RequestHandler):
                     self.gen_restful_error(400, exc.detail)
                 except Exception as detail:
                     self.gen_http_error(500,"Internal Server Error : %s"%detail)
+        if not self._finished:
+            self.gen_http_error(404, 'Not Found')
 
     def _find_params_value_of_url(self,services,url):
         """ Find the values of path params """
