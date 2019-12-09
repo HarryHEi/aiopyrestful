@@ -31,14 +31,12 @@ import asyncio
 from aiopyrestful.rest import get, mediatypes
 
 
-@asyncio.coroutine
 async def async_fun():
     await asyncio.sleep(10)
     return 'text'
 
 
 @get(_path='/configure', _produces=mediatypes.APPLICATION_JSON)
-@asyncio.coroutine
 async def post_configure(self):
     text = await async_fun()
     return {
